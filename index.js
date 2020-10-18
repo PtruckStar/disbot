@@ -1,6 +1,6 @@
 const fs = require("fs");
 const Discord = require("discord.js");
-const { prefix, token } = require("./config.json");
+const { prefix, activity } = require("./config.json");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -22,8 +22,9 @@ for (const file of commandFiles) {
 }
 
 //check apakah bot berhasil login
-client.once("ready", () => {
-  console.log("Ready!");
+client.on("ready", async () => {
+  console.log(`${client.user.username} lapor siap bertugas !`);
+  client.user.setActivity(activity.actName, {type: activity.actType});
 });
 
 client.on("message", message => {
@@ -85,4 +86,4 @@ client.on("message", message => {
   }
 });
 
-client.login(token);
+client.login(process.env.DISCORD_TOKEN);
